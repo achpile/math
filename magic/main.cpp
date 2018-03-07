@@ -7,7 +7,7 @@
 ***********************************************************************/
 #define SIZE   3
 #define POW    1
-#define MAX    10
+#define MAX    100
 
 
 
@@ -25,6 +25,10 @@ struct Square {
 	bool align();
 	void pow();
 	bool check();
+	bool valid();
+
+	void dump();
+	void line();
 };
 
 
@@ -104,6 +108,10 @@ void Square::pow() {
 
 ***********************************************************************/
 bool Square::check() {
+	if (!valid()) return false;
+
+	pow();
+
 	unsigned long long int s1, s2, s3, s4, sum;
 
 	sum = 0;
@@ -137,10 +145,71 @@ bool Square::check() {
 
 
 /***********************************************************************
+    * Square
+    * valid
+
+***********************************************************************/
+bool Square::valid() {
+	for (unsigned int i = 0; i < SIZE; i++)
+		for (unsigned int j = 0; j < SIZE; j++)
+			for (unsigned int k = 0; k < SIZE; k++)
+				for (unsigned int l = 0; l < SIZE; l++)
+					if (data[i][j] == data[k][l] && (i != k || j != l))
+						return false;
+
+	return true;
+}
+
+
+
+/***********************************************************************
+    * Square
+    * dump
+
+***********************************************************************/
+void Square::dump() {
+	printf("\n   -== TABLE DUMP ==-\n\n");
+
+	line();
+
+	for (int i = 0; i < SIZE; i++) {
+		for (int j = 0; j < SIZE; j++)
+			printf("| %3llu ", data[i][j]);
+
+		printf("|\n");
+		line();
+	}
+
+	printf("\n\n");
+}
+
+
+
+/***********************************************************************
+    * Square
+    * line
+
+***********************************************************************/
+void Square::line() {
+	for (int i = 0; i < SIZE; i++) printf("+-----");
+	printf("+\n");
+}
+
+
+
+/***********************************************************************
     * MAIN
 
 ***********************************************************************/
 int main() {
-	printf("Hello world\n");
+	Square a;
+
+	a.init();
+
+	do {
+		if (a.check())
+			a.dump();
+	} while (a.iterate());
+
 	return EXIT_SUCCESS;
 }

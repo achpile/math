@@ -1,5 +1,5 @@
-all: main.c
-	gcc main.c -lm -o magic
+all: main.cpp
+	gcc main.cpp -lm -o magic
 
 clean:
 	rm magic

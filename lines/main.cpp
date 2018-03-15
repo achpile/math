@@ -8,7 +8,7 @@
 #define WSIZE      ((RADIUS + 25) * 2)
 #define CENTER     (WSIZE / 2)
 #define PCOUNT     128
-#define COUNT      200
+#define COUNT      150
 #define PI         3.1415926f
 
 /* ****************************************************************** */
@@ -107,7 +107,7 @@ int main() {
 		render(k);
 		window.display();
 
-		k += frameClock * 0.1f;
+		k += frameClock * 0.3f;
 	}
 
 	return 0;

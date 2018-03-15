@@ -4,12 +4,15 @@
 
 /* ****************************************************************** */
 
-#define RADIUS     275
+#define RADIUS     475
 #define WSIZE      ((RADIUS + 25) * 2)
 #define CENTER     (WSIZE / 2)
 #define PCOUNT     128
-#define COUNT      150
+#define COUNT      5500
+#define TRANSPAR   20
 #define PI         3.1415926f
+#define SPEED      0.2f
+#define START      0.0f
 
 /* ****************************************************************** */
 
@@ -89,14 +92,14 @@ void render(float k) {
 /* ****************************************************************** */
 
 int main() {
-	float k = 0.0f;
+	float k = START;
 
-	window.create(sf::VideoMode(WSIZE, WSIZE), "My window");
+	window.create(sf::VideoMode(WSIZE, WSIZE), "My window", sf::Style::Default, sf::ContextSettings(0,0,2));
 	window.setVerticalSyncEnabled(true);
 	line = sf::VertexArray(sf::Lines, 2);
 
-	line[0].color = sf::Color::Red;
-	line[1].color = sf::Color::Red;
+	line[0].color = sf::Color(255,0,0,TRANSPAR);
+	line[1].color = sf::Color(255,0,0,TRANSPAR);
 
 	lastClock = cloc.getElapsedTime().asMilliseconds();
 
@@ -107,7 +110,7 @@ int main() {
 		render(k);
 		window.display();
 
-		k += frameClock * 0.3f;
+		k += frameClock * SPEED;
 	}
 
 	return 0;

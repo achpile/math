@@ -4,11 +4,11 @@
 
 /* ****************************************************************** */
 
-#define RADIUS     475
+#define RADIUS     375
 #define WSIZE      ((RADIUS + 25) * 2)
 #define CENTER     (WSIZE / 2)
 #define PCOUNT     128
-#define COUNT      5500
+#define COUNT      3000
 #define TRANSPAR   20
 #define PI         3.1415926f
 #define SPEED      0.2f
@@ -20,6 +20,8 @@ sf::RenderWindow window;
 sf::CircleShape  circle;
 sf::VertexArray  line;
 sf::Clock        cloc;
+sf::Text         text;
+sf::Font         font;
 
 long             lastClock;
 float            frameClock;
@@ -80,6 +82,9 @@ void drawLine(float i1, float i2) {
 /* ****************************************************************** */
 
 void render(float k) {
+	text.setString("k = " + std::to_string(k));
+	window.draw(text);
+
 	drawCircle(sf::Vector2f(CENTER,CENTER), RADIUS, sf::Color::Transparent, sf::Color::White, PCOUNT);
 
 	for (int i = 0; i < COUNT; i++)
@@ -93,6 +98,13 @@ void render(float k) {
 
 int main() {
 	float k = START;
+
+	font.loadFromFile("FSEX300.ttf");
+
+	text.setFont(font);
+	text.setCharacterSize(24);
+	text.setFillColor(sf::Color::White);
+	text.setPosition(20,20);
 
 	window.create(sf::VideoMode(WSIZE, WSIZE), "My window", sf::Style::Default, sf::ContextSettings(0,0,2));
 	window.setVerticalSyncEnabled(true);

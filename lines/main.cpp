@@ -40,7 +40,7 @@ void events() {
 
 /* ****************************************************************** */
 
-sf::Vector2f getOutPos(int index) {
+sf::Vector2f getOutPos(float index) {
 	float angle = 2.0f * PI * index / COUNT;
 	return sf::Vector2f(CENTER + RADIUS * cos(angle), CENTER + RADIUS * sin(angle));
 }
@@ -70,8 +70,8 @@ void drawLine(sf::Vector2f a, sf::Vector2f b) {
 
 /* ****************************************************************** */
 
-void drawLine(int i1, int i2) {
-	drawLine(getOutPos(i1 % COUNT), getOutPos(i2 % COUNT));
+void drawLine(float i1, float i2) {
+	drawLine(getOutPos(i1), getOutPos(i2));
 }
 
 /* ****************************************************************** */
@@ -83,7 +83,7 @@ void render(float k) {
 		drawCircle(getOutPos(i), 1, sf::Color::Transparent, sf::Color::Cyan, 16);
 
 	for (int i = 0; i < COUNT; i++)
-		drawLine(i, round((float)i * k));
+		drawLine(i, (float)i * k);
 }
 
 /* ****************************************************************** */
@@ -107,7 +107,7 @@ int main() {
 		render(k);
 		window.display();
 
-		k += frameClock;
+		k += frameClock * 0.1f;
 	}
 
 	return 0;

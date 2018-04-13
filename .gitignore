@@ -1,3 +1,8 @@
+*.o
+
 magic/magic
 lines/lines
 collatz/collatz
+cellular/cellular
+graph/graph
+location/location

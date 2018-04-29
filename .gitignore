@@ -3,6 +3,7 @@
 magic/magic
 lines/lines
 collatz/collatz
+collatz/oddity
 cellular/cellular
 graph/graph
 location/location

@@ -1,4 +1,7 @@
-all: collatz oddity evenity
+all: collatz oddity evenity csv
+
+csv: csv.cpp
+	gcc csv.cpp -lm -o csv
 
 collatz: collatz.cpp
 	gcc collatz.cpp -lm -o collatz
@@ -13,3 +16,4 @@ clean:
 	rm collatz
 	rm oddity
 	rm evenity
+	rm csv

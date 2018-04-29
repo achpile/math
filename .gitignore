@@ -5,6 +5,7 @@ lines/lines
 collatz/collatz
 collatz/oddity
 collatz/evenity
+collatz/csv
 cellular/cellular
 graph/graph
 location/location

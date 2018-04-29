@@ -4,6 +4,7 @@ magic/magic
 lines/lines
 collatz/collatz
 collatz/oddity
+collatz/evenity
 cellular/cellular
 graph/graph
 location/location

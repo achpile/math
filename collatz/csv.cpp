@@ -19,6 +19,18 @@ unsigned next(unsigned x) {
 
 ***********************************************************************/
 unsigned next2(unsigned x) {
+	if ((x-1) % 3 == 0)
+		return (x-1) / 3;
+
+	return 0;
+}
+
+
+/***********************************************************************
+    * next3
+
+***********************************************************************/
+unsigned next3(unsigned x) {
 	if ((2*x-1) % 3 == 0)
 		return (2*x-1) / 3;
 
@@ -31,9 +43,9 @@ unsigned next2(unsigned x) {
 
 ***********************************************************************/
 int main() {
-	printf("NUM,X2,(X2-1)/3\n");
+	printf("NUM,2X,(X-1)/3,(2X-1)/3\n");
 	for (unsigned i = 1; i < COUNT; i++)
-		printf("%u,%u,%u\n", i, next(i), next2(i));
+		printf("%u,%u,%u,%u\n", i, next(i), next2(i), next3(i));
 
 	return EXIT_SUCCESS;
 }

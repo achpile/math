@@ -1,3 +1,5 @@
+#include <string>
+#include <sstream>
 #include <math.h>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>

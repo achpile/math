@@ -18,7 +18,6 @@
 #include <string>
 #include <string.h>
 #include <math.h>
-#include <sqlite3.h>
 #include <stdlib.h>
 #include <assert.h>
 #include <unistd.h>

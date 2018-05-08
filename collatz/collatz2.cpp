@@ -16,8 +16,11 @@ struct num {
 	void zero();
 	void change(int pos);
 	void process();
+	void process2();
 	void init(unsigned x);
 	void dump();
+	void deeven();
+	bool check();
 };
 
 /* ****************************************************************** */
@@ -58,6 +61,15 @@ void num::process() {
 	}
 }
 
+void num::process2() {
+	do {
+		process();
+		dump();
+		deeven();
+		dump();
+	} while(check());
+}
+
 void num::init(unsigned x) {
 	zero();
 
@@ -72,6 +84,27 @@ void num::dump() {
 		else                printf("_");
 
 	printf("\n");
+}
+
+bool num::check() {
+	for (int i = 1; i < SIZE; i++)
+		if (m_num[i].digit) return true;
+
+	return false;
+}
+
+void num::deeven() {
+	int i;
+
+	for (i = 1; i < SIZE; i++)
+		if (m_num[i].digit)
+			break;
+
+	for (int k = 0; k < SIZE - i; k++)
+		m_num[k] = m_num[k+i];
+
+	for (int k = SIZE - i; k < SIZE; k++)
+		m_num[k].digit = false;
 }
 
 /* ****************************************************************** */
@@ -107,11 +140,11 @@ int main(int argc, char **argv) {
 
 	a.init(x);
 
-	dump_bin(x);
-	dump_bin(next(x));
+	//dump_bin(x);
+	//dump_bin(next(x));
 	a.dump();
-	a.process();
-	a.dump();
+	a.process2();
+	//a.dump();
 
 	return EXIT_SUCCESS;
 }

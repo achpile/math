@@ -64,7 +64,6 @@ void num::process() {
 void num::process2() {
 	do {
 		process();
-		dump();
 		deeven();
 		dump();
 	} while(check());
@@ -139,12 +138,8 @@ int main(int argc, char **argv) {
 	unsigned x = atoi(argv[1]);
 
 	a.init(x);
-
-	//dump_bin(x);
-	//dump_bin(next(x));
 	a.dump();
 	a.process2();
-	//a.dump();
 
 	return EXIT_SUCCESS;
 }

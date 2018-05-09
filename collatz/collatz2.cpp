@@ -82,7 +82,13 @@ void num::dump() {
 		if (m_num[i].digit) printf("X");
 		else                printf("_");
 
-	printf("\n");
+	unsigned int x = 0;
+
+	for (int i = 0; i < SIZE; i++)
+		if (m_num[i].digit)
+			x += (1 << i);
+
+	printf(" (%u)\n", x);
 }
 
 bool num::check() {

@@ -7,9 +7,9 @@
 
 /* ****************************************************************** */
 
-#define SIZE      250
-#define SCALE     4
-#define FRAMESKIP 100
+#define SIZE      500
+#define SCALE     2
+#define FRAMESKIP 10000
 #define SLEEP     0
 
 /* ****************************************************************** */
@@ -23,28 +23,19 @@ struct cell {
 
 /* ****************************************************************** */
 
-sf::RenderWindow   window;
-sf::RenderTexture  tex;
-sf::Sprite         spr;
-sf::RectangleShape square;
-sf::Vector2i       pos;
-sf::Vector2i       dir;
-sf::Color          map[SIZE][SIZE];
+sf::RenderWindow       window;
+sf::RenderTexture      tex;
+sf::Sprite             spr;
+sf::RectangleShape     square;
+sf::Vector2i           pos;
+sf::Vector2i           dir;
+sf::Color              map[SIZE][SIZE];
 
-std::vector<cell> cells;
+std::vector<cell>      cells;
+std::vector<sf::Color> colors;
 
-bool              finished;
-int               frame;
-
-/* ****************************************************************** */
-
-void events() {
-	sf::Event event;
-
-	while (window.pollEvent(event))
-		if (event.type == sf::Event::Closed)
-			window.close();
-}
+bool                  finished;
+int                   frame;
 
 /* ****************************************************************** */
 
@@ -99,9 +90,32 @@ void step() {
 
 /* ****************************************************************** */
 
-void initSequence() {
-	cells.push_back(cell(sf::Color::White, false));
-	cells.push_back(cell(sf::Color::Red  , true));
+void initColors() {
+	colors.push_back(sf::Color::White);
+	colors.push_back(sf::Color::Red);
+	colors.push_back(sf::Color::Green);
+	colors.push_back(sf::Color::Blue);
+	colors.push_back(sf::Color::Yellow);
+	colors.push_back(sf::Color::Magenta);
+	colors.push_back(sf::Color::Cyan);
+	colors.push_back(sf::Color(128, 128, 128));
+	colors.push_back(sf::Color(  0, 128, 128));
+	colors.push_back(sf::Color(128,   0, 128));
+	colors.push_back(sf::Color(128, 128,   0));
+	colors.push_back(sf::Color(  0,   0, 128));
+	colors.push_back(sf::Color(  0, 128,   0));
+	colors.push_back(sf::Color(128,   0,   0));
+}
+
+/* ****************************************************************** */
+
+void initRandomSequence() {
+	cells.clear();
+
+	int c = 2 + rand() % (colors.size() - 1);
+
+	for (int i = 0; i < c; i++)
+		cells.push_back(cell(colors[i], (rand() % 2) ? true : false));
 }
 
 /* ****************************************************************** */
@@ -110,13 +124,42 @@ void initMap() {
 	for (int i = 0; i < SIZE; i++)
 		for (int j = 0; j < SIZE; j++)
 			map[i][j] = cells[0].color;
+}
 
-	tex.clear(cells[0].color);
+/* ****************************************************************** */
+
+void reset() {
+	initRandomSequence();
+	initMap();
+
+	pos = sf::Vector2i(SIZE / 2, SIZE / 2);
+	dir = sf::Vector2i(  0,  -1);
+
+	finished = false;
+	frame    = 0;
+
+	tex.clear(sf::Color::Black);
+}
+
+/* ****************************************************************** */
+
+void events() {
+	sf::Event event;
+
+	while (window.pollEvent(event)) {
+		if (event.type == sf::Event::Closed)
+			window.close();
+
+		if (event.type == sf::Event::MouseButtonPressed)
+			reset();
+	}
 }
 
 /* ****************************************************************** */
 
 int main() {
+	srand(time(NULL));
+
 	window.create(sf::VideoMode(SIZE * SCALE, SIZE * SCALE), "My window", sf::Style::Default, sf::ContextSettings(0,0,2));
 	window.setVerticalSyncEnabled(true);
 
@@ -128,16 +171,10 @@ int main() {
 	spr.setPosition(0, 0);
 	spr.setTexture(tex.getTexture());
 
-	pos = sf::Vector2i(SIZE / 2, SIZE / 2);
-	dir = sf::Vector2i(  0,  -1);
-
-	finished = false;
-	frame    = 0;
-
 	square.setSize(sf::Vector2f(SCALE, SCALE));
 
-	initSequence();
-	initMap();
+	initColors();
+	reset();
 
 	while (window.isOpen()) {
 		events();
